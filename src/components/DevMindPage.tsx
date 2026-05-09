@@ -1,15 +1,30 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import {
+  Brain,
+  RefreshCw,
+  ClipboardList,
+  Lock,
+  CloudOff,
+  Zap,
+  Gift,
+  MessageSquare,
+  Search,
+  Target,
+  Microscope,
+  HelpCircle,
+  BarChart3,
+  FolderDown,
+  Ban,
+  Clock,
+  KeyRound,
+  Apple,
+  MonitorSmartphone,
+  TerminalSquare,
+} from "lucide-react";
 import { NeuralBackground } from "@/components/NeuralBackground";
 import { TerminalWindow } from "@/components/TerminalWindow";
 import { TerminalTyper } from "@/components/TerminalTyper";
-
-const HEX = (
-  <svg width="20" height="22" viewBox="0 0 20 22" fill="none" aria-hidden="true">
-    <path d="M10 1l8.66 5v10L10 21l-8.66-5V6L10 1z" stroke="#7c6cfc" strokeWidth="1.5" />
-    <path d="M10 6l4.33 2.5v5L10 16l-4.33-2.5v-5L10 6z" fill="#7c6cfc" fillOpacity="0.25" stroke="#7c6cfc" strokeWidth="1" />
-  </svg>
-);
+import { SiteHeader, SiteFooter, GITHUB_URL, SUPPORT_EMAIL } from "@/components/SiteChrome";
 
 const fade = {
   initial: { opacity: 0, y: 24 },
@@ -18,40 +33,6 @@ const fade = {
   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
 };
 
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all ${
-        scrolled ? "border-b border-[#222] bg-[#0a0a0a]/70 backdrop-blur-xl" : "bg-transparent"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-2.5">
-          {HEX}
-          <span className="text-lg font-bold tracking-tight text-foreground">DevMind</span>
-        </a>
-        <div className="flex items-center gap-2 text-sm sm:gap-6">
-          <a href="#" className="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">GitHub</a>
-          <a href="#install" className="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Docs</a>
-          <a
-            href="#pricing"
-            className="rounded-full bg-[#7c6cfc] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[#9d8ffd] hover:shadow-[0_0_24px_-4px_#7c6cfc]"
-          >
-            Buy Pro — ₹499
-          </a>
-        </div>
-      </nav>
-    </header>
-  );
-}
-
 const heroFrames = [
   `$ devmind init
 ✓ DevMind initialized and running!
@@ -59,7 +40,7 @@ const heroFrames = [
   Watching: /Users/dev/my-project`,
   `$ devmind resume
 ┌─ DevMind — Session 12 ──────────────────────┐
-│ 🧠 Where you left off:                      │
+│ Where you left off:                         │
 │ You were migrating the auth system to JWT.  │
 │ The refresh token logic is incomplete.      │
 └─────────────────────────────────────────────┘`,
@@ -125,15 +106,16 @@ function Hero() {
 
 function Problem() {
   const pains = [
-    { icon: "🧠", text: "You open your laptop and forget where you left off." },
-    { icon: "🔄", text: "Your AI assistant has no memory between sessions." },
-    { icon: "📋", text: "Writing standup updates wastes 10 minutes every morning." },
+    { Icon: Brain, text: "You open your laptop and forget where you left off." },
+    { Icon: RefreshCw, text: "Your AI assistant has no memory between sessions." },
+    { Icon: ClipboardList, text: "Writing standup updates wastes 10 minutes every morning." },
   ];
   return (
     <section className="border-t border-[#161616] py-28">
       <div className="mx-auto grid max-w-6xl gap-16 px-6 md:grid-cols-2 md:gap-12">
         <motion.h2 {...fade} className="text-balance text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
-          AI IDEs write your code. <span className="text-muted-foreground">None of them remember why you wrote it.</span>
+          AI IDEs write your code.{" "}
+          <span className="text-muted-foreground">None of them remember why you wrote it.</span>
         </motion.h2>
         <div className="space-y-4">
           {pains.map((p, i) => (
@@ -143,7 +125,7 @@ function Problem() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="card-hover flex items-start gap-4 rounded-2xl border border-[#222] bg-[#111] p-6"
             >
-              <span className="text-2xl">{p.icon}</span>
+              <p.Icon className="mt-0.5 h-6 w-6 shrink-0 text-[#7c6cfc]" strokeWidth={1.5} />
               <p className="text-lg text-foreground/90">{p.text}</p>
             </motion.div>
           ))}
@@ -192,19 +174,19 @@ function HowItWorks() {
 }
 
 function Features() {
-  const features = [
-    ["🧠", "devmind resume", "Know exactly where you left off, every morning."],
-    ["📋", "devmind standup", "Auto-generate your daily standup in one command."],
-    ["💬", "devmind commit", "AI commit messages that understand your intent, not just the diff."],
-    ["🔍", "devmind diff", "Explain any git diff in plain English instantly."],
-    ["🎯", "devmind focus", "Get a focus score and detect context-switching."],
-    ["🔬", "devmind review", "AI code review of files you actually changed this session."],
-    ["❓", "devmind ask", "Query your own session history like a search engine."],
-    ["📊", "devmind report", "Weekly productivity report saved as Markdown."],
-    ["📁", "devmind export", "Export any session as a clean Markdown file."],
-    ["🚫", "devmind ignore", "Per-project ignore patterns, like .gitignore."],
-    ["🕒", "devmind timeline", "See everything you touched, in order, in a table."],
-    ["🔑", "devmind activate", "Unlock unlimited summaries with a license key."],
+  const features: Array<[React.ComponentType<{ className?: string; strokeWidth?: number }>, string, string]> = [
+    [Brain, "devmind resume", "Know exactly where you left off, every morning."],
+    [ClipboardList, "devmind standup", "Auto-generate your daily standup in one command."],
+    [MessageSquare, "devmind commit", "AI commit messages that understand your intent, not just the diff."],
+    [Search, "devmind diff", "Explain any git diff in plain English instantly."],
+    [Target, "devmind focus", "Get a focus score and detect context-switching."],
+    [Microscope, "devmind review", "AI code review of files you actually changed this session."],
+    [HelpCircle, "devmind ask", "Query your own session history like a search engine."],
+    [BarChart3, "devmind report", "Weekly productivity report saved as Markdown."],
+    [FolderDown, "devmind export", "Export any session as a clean Markdown file."],
+    [Ban, "devmind ignore", "Per-project ignore patterns, like .gitignore."],
+    [Clock, "devmind timeline", "See everything you touched, in order, in a table."],
+    [KeyRound, "devmind activate", "Unlock unlimited summaries with a license key."],
   ];
   return (
     <section className="border-t border-[#161616] py-28">
@@ -214,14 +196,14 @@ function Features() {
           <p className="mt-4 text-lg text-muted-foreground">Twelve commands. One persistent mind.</p>
         </motion.div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map(([icon, name, desc], i) => (
+          {features.map(([Icon, name, desc], i) => (
             <motion.div
               key={name}
               {...fade}
               transition={{ duration: 0.45, delay: (i % 6) * 0.05 }}
               className="card-hover rounded-2xl border border-[#222] bg-[#1a1a1a] p-6"
             >
-              <div className="text-2xl">{icon}</div>
+              <Icon className="h-5 w-5 text-[#7c6cfc]" strokeWidth={1.5} />
               <div className="mt-4 font-mono text-sm font-semibold text-[#a89dff]">{name}</div>
               <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
             </motion.div>
@@ -233,11 +215,11 @@ function Features() {
 }
 
 function Privacy() {
-  const items = [
-    ["🔒", "Local AI (Ollama)"],
-    ["🚫", "No data sent to cloud"],
-    ["⚡", "Works offline"],
-    ["🆓", "Free AI, forever"],
+  const items: Array<[React.ComponentType<{ className?: string; strokeWidth?: number }>, string]> = [
+    [Lock, "Local AI (Ollama)"],
+    [CloudOff, "No data sent to cloud"],
+    [Zap, "Works offline"],
+    [Gift, "Free AI, forever"],
   ];
   return (
     <section className="border-t border-[#161616] py-28">
@@ -259,10 +241,10 @@ function Privacy() {
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              {items.map(([i, t]) => (
+              {items.map(([Icon, t]) => (
                 <div key={t} className="rounded-2xl border border-[#222] bg-[#0a0a0a] p-5">
-                  <div className="text-2xl">{i}</div>
-                  <div className="mt-3 text-sm font-medium text-foreground">{t}</div>
+                  <Icon className="h-6 w-6 text-[#7c6cfc]" strokeWidth={1.5} />
+                  <div className="mt-3 text-sm font-medium">{t}</div>
                 </div>
               ))}
             </div>
@@ -290,10 +272,10 @@ function Pricing() {
               <span className="text-muted-foreground">/forever</span>
             </div>
             <ul className="mt-8 space-y-3 text-sm text-foreground/85">
-              <li>• Up to 10 AI summaries</li>
-              <li>• All CLI commands</li>
-              <li>• Local Ollama AI</li>
-              <li>• File + terminal tracking</li>
+              <li>— Up to 10 AI summaries</li>
+              <li>— All CLI commands</li>
+              <li>— Local Ollama AI</li>
+              <li>— File + terminal tracking</li>
             </ul>
             <a
               href="#install"
@@ -331,7 +313,11 @@ function Pricing() {
           </motion.div>
         </div>
 
-        <motion.div {...fade} id="pay" className="mx-auto mt-10 flex max-w-4xl flex-col items-center gap-5 rounded-2xl border border-[#222] bg-[#0d0d0d] p-6 sm:flex-row">
+        <motion.div
+          {...fade}
+          id="pay"
+          className="mx-auto mt-10 flex max-w-4xl flex-col items-center gap-5 rounded-2xl border border-[#222] bg-[#0d0d0d] p-6 sm:flex-row"
+        >
           <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-xl bg-white p-2">
             <svg viewBox="0 0 100 100" className="h-full w-full">
               {Array.from({ length: 100 }).map((_, i) => {
@@ -351,7 +337,11 @@ function Pricing() {
           <div className="text-center text-sm text-muted-foreground sm:text-left">
             <div className="font-mono text-foreground">UPI: 8850783566@fam</div>
             <p className="mt-2">
-              Send ₹499, then email your transaction ID to get your license key within 24 hours.
+              Send ₹499, then email your transaction ID to{" "}
+              <a href={`mailto:${SUPPORT_EMAIL}`} className="text-[#a89dff] hover:underline">
+                {SUPPORT_EMAIL}
+              </a>{" "}
+              to get your license key within 24 hours.
             </p>
             <p className="mt-1 text-xs text-[#444]">Scan to pay →</p>
           </div>
@@ -362,6 +352,11 @@ function Pricing() {
 }
 
 function Install() {
+  const platforms: Array<[React.ComponentType<{ className?: string; strokeWidth?: number }>, string]> = [
+    [MonitorSmartphone, "Windows"],
+    [Apple, "macOS"],
+    [TerminalSquare, "Linux"],
+  ];
   return (
     <section id="install" className="border-t border-[#161616] py-28">
       <div className="mx-auto max-w-4xl px-6">
@@ -373,73 +368,42 @@ function Install() {
           <TerminalWindow title="install.sh">
             <pre className="font-mono text-[13px] leading-7 text-[#d4d4d4]">
               <span className="text-[#666]"># Windows — run as PowerShell</span>{"\n"}
-              <span className="text-[#19c37d]">powershell</span> -ExecutionPolicy Bypass -File install.ps1{"\n\n"}
+              <span className="text-[#19c37d]">powershell</span> -ExecutionPolicy Bypass -File install.ps1
+              {"\n\n"}
               <span className="text-[#666]"># Then in any project:</span>{"\n"}
               <span className="text-[#19c37d]">devmind</span> init
             </pre>
           </TerminalWindow>
         </motion.div>
-        <motion.div {...fade} className="mt-10 flex items-center justify-center gap-10 text-muted-foreground">
-          <PlatformIcon label="Windows">
-            <path d="M0 3.5L9.5 2v9H0V3.5zM10.5 1.85L24 0v11h-13.5V1.85zM0 12h9.5v9L0 19.5V12zm10.5 0H24v11l-13.5-1.85V12z" />
-          </PlatformIcon>
-          <PlatformIcon label="macOS">
-            <path d="M16.7 12.7c0-2.6 2.1-3.9 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.5 1.3-.1 1.8-.9 3.4-.9s2 .9 3.4.8c1.4 0 2.3-1.2 3.1-2.5.7-1 1.3-2.2 1.7-3.4-.1 0-3.2-1.3-3.2-3.4zM14 4.6c.7-.9 1.2-2.1 1.1-3.4-1.1.1-2.4.7-3.1 1.6-.7.8-1.3 2-1.1 3.2 1.2.1 2.4-.6 3.1-1.4z" />
-          </PlatformIcon>
-          <PlatformIcon label="Linux">
-            <path d="M12.5 2c-2 0-3.7 1.7-3.7 3.7 0 1.4.5 2.4.5 3.4 0 .9-1.5 2.6-2.6 4.6-1 1.9-1.6 3.7-1.6 5.3 0 .5.1 1 .3 1.4.4-.7 1-1 1.5-1 .3 0 .5.1.7.2-.1-.3-.1-.6-.1-1 0-1.6 1.3-3.5 2.4-5.1.9-1.3 1.6-2.4 1.6-3.4 0-.4-.2-.7-.4-1 .3.1.5.1.8.1 1.7 0 3-1.3 3-3 0-1.7-1.3-3-3-3-.4-.7-1-1.2-1.4-1.2zm-1.4 4.3c-.4 0-.7-.4-.7-.9s.3-.9.7-.9c.4 0 .7.4.7.9s-.3.9-.7.9zm2.8 0c-.4 0-.7-.4-.7-.9s.3-.9.7-.9c.4 0 .7.4.7.9s-.3.9-.7.9z" />
-          </PlatformIcon>
+        <motion.div {...fade} className="mt-10 flex items-center justify-center gap-12 text-muted-foreground">
+          {platforms.map(([Icon, label]) => (
+            <div key={label} className="flex flex-col items-center gap-2">
+              <Icon className="h-8 w-8 text-[#888] transition-colors hover:text-[#7c6cfc]" strokeWidth={1.4} />
+              <span className="text-xs">{label}</span>
+            </div>
+          ))}
         </motion.div>
         <p className="mt-6 text-center text-sm text-muted-foreground">Cross-platform</p>
+        <p className="mt-2 text-center text-xs text-[#444]">
+          Need help? Email{" "}
+          <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-foreground">
+            {SUPPORT_EMAIL}
+          </a>{" "}
+          or visit{" "}
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="hover:text-foreground">
+            GitHub
+          </a>
+          .
+        </p>
       </div>
     </section>
-  );
-}
-
-function PlatformIcon({ children, label }: { children: React.ReactNode; label: string }) {
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-[#888] transition-colors hover:text-[#7c6cfc]">
-        {children}
-      </svg>
-      <span className="text-xs">{label}</span>
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="border-t border-[#222] py-12">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-8 md:grid-cols-3 md:items-center">
-          <div className="flex items-center gap-2.5">
-            {HEX}
-            <div>
-              <div className="font-bold">DevMind</div>
-              <div className="text-xs text-muted-foreground">Project consciousness for solo developers.</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-6 text-sm text-muted-foreground md:justify-center">
-            <a href="#" className="hover:text-foreground">GitHub</a>
-            <a href="#install" className="hover:text-foreground">Docs</a>
-            <a href="#pricing" className="hover:text-foreground">Buy Pro</a>
-          </div>
-          <div className="text-sm text-muted-foreground md:text-right">
-            Built by a solo developer. Powered by Ollama + Claude.
-          </div>
-        </div>
-        <div className="mt-10 border-t border-[#1a1a1a] pt-6 text-center text-xs text-[#444]">
-          © 2025 DevMind
-        </div>
-      </div>
-    </footer>
   );
 }
 
 export function DevMindPage() {
   return (
     <div className="dark min-h-screen bg-background text-foreground">
-      <Navbar />
+      <SiteHeader />
       <main>
         <Hero />
         <Problem />
@@ -449,7 +413,7 @@ export function DevMindPage() {
         <Pricing />
         <Install />
       </main>
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
