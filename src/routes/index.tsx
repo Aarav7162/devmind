@@ -1,26 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { DevMindPage } from "@/components/DevMindPage";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: DevMindPage,
+  head: () => ({
+    meta: [
+      { title: "DevMind — Project consciousness for solo developers" },
+      {
+        name: "description",
+        content:
+          "DevMind watches your project silently, understands what you're building, and gives you your brain back every morning. Local AI. Free forever.",
+      },
+      { property: "og:title", content: "DevMind — Project consciousness for solo developers" },
+      {
+        property: "og:description",
+        content: "Local AI CLI that remembers what you were building. Resume, standup, commit — instantly.",
+      },
+    ],
+  }),
 });
-
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
-}
