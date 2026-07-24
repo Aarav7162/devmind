@@ -9,13 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProductRouteImport } from './routes/product'
+import { Route as IntelligenceRouteImport } from './routes/intelligence'
 import { Route as DocsRouteImport } from './routes/docs'
+import { Route as CommandCentreRouteImport } from './routes/command-centre'
+import { Route as CapabilitiesRouteImport } from './routes/capabilities'
+import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ProductRoute = ProductRouteImport.update({
+  id: '/product',
+  path: '/product',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntelligenceRoute = IntelligenceRouteImport.update({
+  id: '/intelligence',
+  path: '/intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommandCentreRoute = CommandCentreRouteImport.update({
+  id: '/command-centre',
+  path: '/command-centre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CapabilitiesRoute = CapabilitiesRouteImport.update({
+  id: '/capabilities',
+  path: '/capabilities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssetsRoute = AssetsRouteImport.update({
+  id: '/assets',
+  path: '/assets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -32,40 +62,120 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/assets': typeof AssetsRoute
+  '/capabilities': typeof CapabilitiesRoute
+  '/command-centre': typeof CommandCentreRoute
   '/docs': typeof DocsRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/product': typeof ProductRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/assets': typeof AssetsRoute
+  '/capabilities': typeof CapabilitiesRoute
+  '/command-centre': typeof CommandCentreRoute
   '/docs': typeof DocsRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/product': typeof ProductRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/assets': typeof AssetsRoute
+  '/capabilities': typeof CapabilitiesRoute
+  '/command-centre': typeof CommandCentreRoute
   '/docs': typeof DocsRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/product': typeof ProductRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/docs'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/assets'
+    | '/capabilities'
+    | '/command-centre'
+    | '/docs'
+    | '/intelligence'
+    | '/product'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/docs'
-  id: '__root__' | '/' | '/about' | '/docs'
+  to:
+    | '/'
+    | '/about'
+    | '/assets'
+    | '/capabilities'
+    | '/command-centre'
+    | '/docs'
+    | '/intelligence'
+    | '/product'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/assets'
+    | '/capabilities'
+    | '/command-centre'
+    | '/docs'
+    | '/intelligence'
+    | '/product'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AssetsRoute: typeof AssetsRoute
+  CapabilitiesRoute: typeof CapabilitiesRoute
+  CommandCentreRoute: typeof CommandCentreRoute
   DocsRoute: typeof DocsRoute
+  IntelligenceRoute: typeof IntelligenceRoute
+  ProductRoute: typeof ProductRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/product': {
+      id: '/product'
+      path: '/product'
+      fullPath: '/product'
+      preLoaderRoute: typeof ProductRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/intelligence': {
+      id: '/intelligence'
+      path: '/intelligence'
+      fullPath: '/intelligence'
+      preLoaderRoute: typeof IntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs': {
       id: '/docs'
       path: '/docs'
       fullPath: '/docs'
       preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/command-centre': {
+      id: '/command-centre'
+      path: '/command-centre'
+      fullPath: '/command-centre'
+      preLoaderRoute: typeof CommandCentreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/capabilities': {
+      id: '/capabilities'
+      path: '/capabilities'
+      fullPath: '/capabilities'
+      preLoaderRoute: typeof CapabilitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assets': {
+      id: '/assets'
+      path: '/assets'
+      fullPath: '/assets'
+      preLoaderRoute: typeof AssetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -88,7 +198,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AssetsRoute: AssetsRoute,
+  CapabilitiesRoute: CapabilitiesRoute,
+  CommandCentreRoute: CommandCentreRoute,
   DocsRoute: DocsRoute,
+  IntelligenceRoute: IntelligenceRoute,
+  ProductRoute: ProductRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
