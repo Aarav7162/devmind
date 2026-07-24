@@ -237,7 +237,7 @@ export interface Incident {
   method: Capability["method"];
   impacts: string[];
   actions: string[];
-  demo: boolean;
+  demo?: boolean;
 }
 
 export const INCIDENTS: Incident[] = [
