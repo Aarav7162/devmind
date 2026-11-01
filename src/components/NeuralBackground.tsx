@@ -45,7 +45,7 @@ export function NeuralBackground() {
           const d = Math.hypot(dx, dy);
           if (d < 140) {
             const a = (1 - d / 140) * 0.35;
-            ctx.strokeStyle = `rgba(124,108,252,${a})`;
+            ctx.strokeStyle = `rgba(232,163,61,${a})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -55,14 +55,15 @@ export function NeuralBackground() {
         }
       }
       for (const n of nodes) {
-        ctx.fillStyle = "rgba(124,108,252,0.7)";
+        ctx.fillStyle = "rgba(232,163,61,0.7)";
         ctx.beginPath();
         ctx.arc(n.x, n.y, 1.6, 0, Math.PI * 2);
         ctx.fill();
       }
       raf = requestAnimationFrame(tick);
     };
-    tick();
+    raf = requestAnimationFrame(tick);
+
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
@@ -72,7 +73,7 @@ export function NeuralBackground() {
   return (
     <canvas
       ref={ref}
-      className="absolute inset-0 h-full w-full opacity-60"
+      className="h-full w-full opacity-60"
       aria-hidden="true"
     />
   );
